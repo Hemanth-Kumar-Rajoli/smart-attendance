@@ -118,27 +118,33 @@ class OpenFireBaseConnection:
             timedelay = 5  # in minutes
 
     def download_attendence(self, to_whome, period_no,date):
-        print(self.current_user_id())
+        # print(self.current_user_id()['localId'])
         my_data = self.database.child("User").child("teacher").child(self.current_user_id()['localId']).get()
-        print(my_data)
+        # print(my_data)
         my_reg_no = None
         department = None
         wb = Workbook()
         ws = wb.active
         try:
             for data in my_data.each():
-                print(data.key(), data.val())
                 if data.key() == 'reg_no':
                     my_reg_no = data.val()
                 elif data.key() == "department":
                     department = data.val()
         except:
             pass
-        print(my_reg_no, department)
+        # print(my_reg_no, department)
         attendence_list = self.database.child("Attendence").child(department).child(to_whome).child(my_reg_no).child(date).child(period_no).child("attendedList").get()
         try:
+            print("downloading attendence")
+            wb = Workbook()
+            ws = wb.active
+            ws.append(["reg no.s"])
             for student in attendence_list.each():
+                ws.append([student.val()])
                 print(student.val())
+            wb.save(f'{date}-{department}-{to_whome}.xlsx')
+            wb.close()
         except:
             print("error in reaching inside the data")
 
@@ -200,5 +206,5 @@ if __name__ == '__main__':
     # print(firebase.printdebug())
     # firebase.need_to_take_attendence('A', 1)
     firebase.give_attendence('500',1)'''
-    firebase.authenticate_user_by_email_and_password("dummyteacher","password")
+    print(firebase.authenticate_user_by_email_and_password("dummydummy@gmail.com","password"))
     firebase.download_attendence('A',1,"12 03 22")
