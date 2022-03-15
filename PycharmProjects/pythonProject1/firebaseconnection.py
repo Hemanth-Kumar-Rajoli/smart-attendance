@@ -32,7 +32,7 @@ class OpenFireBaseConnection:
     def createuserbyemail(self, email, password, conform_password):
         try:
             if password == conform_password:
-                self.auth.create_user_with_email_and_password(email, password)
+                print("in side the firebase class andd firebasef connn",self.auth.create_user_with_email_and_password(email, password))
                 return True
             else:
                 return False
@@ -143,7 +143,7 @@ class OpenFireBaseConnection:
             for student in attendence_list.each():
                 ws.append([student.val()])
                 print(student.val())
-            wb.save(f'{date}-{department}-{to_whome}.xlsx')
+            wb.save(f'{date}-{department}-{to_whome}-{period_no}.xlsx')
             wb.close()
         except:
             print("error in reaching inside the data")

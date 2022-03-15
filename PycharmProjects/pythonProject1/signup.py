@@ -3,7 +3,7 @@ from trainImages import FaceTrainer
 
 
 class SignUp:
-    def __init__(self, email, password, password_conform, ):
+    def __init__(self, email, password, password_conform):
         self.email = email
         self.password = password
         self.password_conform = password_conform
@@ -11,21 +11,30 @@ class SignUp:
 
     def create_user_with_email_password(self):
         try:
-            self.firebase.createuserbyemail(self.email, self.password, self.password_conform)
+            return self.firebase.createuserbyemail(self.email, self.password, self.password_conform)
         except:
             return False
 
     def store_the_required_data(self, reg_no=None, name=None, role=None, year=None, sem=None, department=None,
                                 section=None):
         try:
+            print('go and do some work',self.firebase.current_user_id())
             self.firebase.push_data_by_schema(reg_no, name, role, year, sem, department, section)
             # self.firebase.
             return True
         except:
             print('eroor')
             return False
+    def authenticate_me(self):
+        try:
+            print("--------------",self.firebase.authenticate_user_by_email_and_password(self.email, self.password))
+            return True
+        except Exception as e:
+            print(e)
+            return False
 
-    def train_my_face(self, ref_loc):
+    def train_my_face(self, ref_loc=None):
+        ref_loc=self.firebase.current_user_id()['localId']
         try:
             FaceTrainer().collect_images().train_the_set().train_the_set(ref_loc)
         except Exception as e:
