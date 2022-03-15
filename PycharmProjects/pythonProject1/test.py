@@ -83,7 +83,6 @@ class StaffSignin2(Screen):
         print(self.getname.text)
         print(self.getrole.text)
         print(self.getdept.text)
-        print(self.getstaffsection.text)
 
 
 class MainWindow(Screen):
@@ -152,8 +151,8 @@ class WindowManager(ScreenManager):
         self.add_widget(Signin1(name="Signin1"))
         self.add_widget(Signin2(name="Signin2"))
         self.add_widget(Staffsignlogin(name='Staffsignlogin'))
-        self.add_widget(StaffSignin1(name="StaffSignin1"))
-        self.add_widget(StaffSignin2(name="StaffSignin2"))
+        self.add_widget(Signin1(name="StaffSignin1"))
+        self.add_widget(Signin2(name="StaffSignin2"))
         self.add_widget(MainWindow(name='MainWindow'))
         self.add_widget(StudentLogin(name="StudentLogin"))
         self.add_widget(StaffLogin(name="StaffLogin"))
@@ -194,7 +193,7 @@ WindowManager:
 <SignLogin>:
     MDFillRoundFlatIconButton:
         pos_hint:{'center_x': 0.5, 'center_y': 0.65}
-        text: "SignUp"  
+        text: "Signin"  
         on_release:
             app.root.current = "Signin1" 
             root.manager.transition.direction = "left"
@@ -216,7 +215,7 @@ WindowManager:
     getpassword: Spassword
     getcpassword:CSpassword
     MDToolbar:
-        title: 'SignUp'
+        title: 'Signin'
         pos_hint: {"top": 1}
     MDTextField:
         id: Sid
@@ -260,7 +259,7 @@ WindowManager:
     getsection:section
 
     MDToolbar:
-        title: "SignUP"
+        title: "Signin"
         pos_hint: {"top": 1}
     MDTextField:
         id: getid
@@ -327,7 +326,7 @@ WindowManager:
 <Staffsignlogin>:
     MDFillRoundFlatIconButton:
         pos_hint:{'center_x': 0.5, 'center_y': 0.65}
-        text: "StaffSignUP"  
+        text: "StaffSignin"  
         on_release:
             app.root.current = "StaffSignin1" 
             root.manager.transition.direction = "left"
@@ -337,20 +336,13 @@ WindowManager:
         on_release:
             app.root.current = "MainWindow" 
             root.manager.transition.direction = "left"
-    MDFillRoundFlatIconButton:
-        pos_hint: {'center_x': 0.5, 'center_y': 0.45}
-        text: "Back"
-        on_release:
-            app.root.current="stustaff"
-            root.manager.transition.direction="right"
-    
 <StaffSignin1>:
     name: "Signin1"
     getid: Staffid
     getpassword: Staffpassword
     getcpassword:CStaffpassword
     MDToolbar:
-        title: 'StaffSignUp'
+        title: 'StaffSignin'
         pos_hint: {"top": 1}
     MDTextField:
         id: Staffid
@@ -384,15 +376,14 @@ WindowManager:
             app.root.current=""
             root.manager.transition.direction="right"
 <StaffSignin2>:
-    name:"SignUp2"
+    name:"Signin2"
     getid: getstaffid
     getname: staffname
     getrole:role
     getdept:dept
-    getstaffsection:staffsection
 
     MDToolbar:
-        title: "SignUp"
+        title: "Signin"
         pos_hint: {"top": 1}
     MDTextField:
         id: getstaffid
@@ -416,12 +407,6 @@ WindowManager:
         id: dept
         hint_text: "Enter Department"
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        size_hint_x: None
-        width: 300
-    MDTextField:
-        id: staffsection
-        hint_text:"Enter section"
-        pos_hint: {'center_x': 0.5, 'center_y': 0.4}
         size_hint_x: None
         width: 300
     MDFillRoundFlatIconButton:
